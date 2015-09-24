@@ -11,4 +11,8 @@ public class ToastUtil {
     public static void toast(String str, Context context) {
         Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
     }
+     public static void sayTime(Context context) {
+       toast(System.currentTimeMillis()+"",context);
+    }
+
 }

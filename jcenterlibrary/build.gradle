@@ -1,17 +1,19 @@
-//---------------------------------------------------------------------------
 apply plugin: 'com.android.library'
+//--------------------------------上传到jcenter需要的插件-------------------------------------------
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+//--------------------------------基本配置-------------------------------------------
 // This is the library version used when deploying the artifact
-version = "1.0.0"
-android {
+//这个会在libs 生成的文件  加上  version 值作为后缀
+version = "1.0.1"             // <-------------------  版本号   更新时需要修改
+ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     resourcePrefix "jcenter__"    //这个随便填
     // 默认配置
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName version
@@ -24,14 +26,18 @@ android {
         }
     }
 }
-//  依赖的jar   资源
+//--------------------------------依赖的jar   资源-------------------------------------------
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-//    compile 'com.android.support:appcompat-v7:22.2.1'
 }
+//--------------------------------项目地址-------------------------------------------
+
 def siteUrl = 'https://github.com/BigManing/M2Jcenter' // 项目的主页
 def gitUrl = 'https://github.com/BigManing/M2Jcenter.git' // Git仓库的url
 group = "jscenter.test.com.jcenterlibrary" // Maven Group ID for the artifact，一般填你唯一的包名
+
+//上传到jcenter至少需要四个文件，除了打包的aar之外，还需要pom和javadoc，source，
+// 否则是通不过jcenter审核的。不过不用紧张，这些我们都可以用脚本生成。
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
@@ -39,7 +45,7 @@ install {
             project {
                 packaging 'aar'
                 // Add your description here
-                name 'use  gradle put  library  to  jcenter / 使用Gradle发布依赖库到JCenter仓库' //项目描述
+                name 'use  gradle put  library  to  jcenter ' //项目描述
                 url siteUrl
                 // Set your license
                 licenses {
@@ -64,6 +70,10 @@ install {
         }
     }
 }
+
+//6. 打包javadocjar和sourcejar
+//这两个也是上传到jcenter必须要的。
+
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
@@ -80,18 +90,27 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
+//-----------------------上传到jcenter的网站BinTray，需要用户验证，需要2个值：-----------------------
+/*
+// 示例值， 仅供参考
+bintray.user=openproject                                // your bintray user name
+bintray.apikey=c5434272d522d35d1a0123459981225564155753 // your bintray api key
+第二个API Key就是你在上面记录的API Key。
+因为这个属于个人隐私，一般不能传到网上去，所以需要在记录到项目根目录下的
+local.properties中(利用gitignore忽略这个文件到git)，然后脚本再从local.properties中读取这两个值。
+*/
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
     configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = "jcenterlibrary"    //发布到JCenter上的项目名字
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
-    }
+   pkg {
+    repo = "maven"
+    name = "jcenterlibrary"    //发布到JCenter上的项目名字
+    websiteUrl = siteUrl
+    vcsUrl = gitUrl
+    licenses = ["Apache-2.0"]
+    publish = true
+}
 }
