@@ -6,7 +6,9 @@
 https://github.com/BigManing/M2Jcenter/blob/master/jcenterlibrary/build.gradle
 
 2、在项目根目录下（最外层的）local.properties文件下  添加如下代码
+
 bintray.user=******    // https://bintray.com    注册的   用户名
+
 bintray.apikey=******************************   // https://bintray.com    用户编辑的地方    有个api key  就是这个
 
 3、在Android studio 右侧grandle  里面 要发布的library 下  有个publishing --bintrayUpload     点击运行 就可以上传library  
