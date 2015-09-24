@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
-//--------------------------------上传到jcenter需要的插件-------------------------------------------
+//要你有这两个插件
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 //--------------------------------基本配置-------------------------------------------
 // This is the library version used when deploying the artifact
 //这个会在libs 生成的文件  加上  version 值作为后缀
-version = "1.0.1"             // <-------------------  版本号   更新时需要修改
+version = "1.0.2"             // <======================  版本号
  android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"

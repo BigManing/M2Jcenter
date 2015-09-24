@@ -14,5 +14,8 @@ public class ToastUtil {
      public static void sayTime(Context context) {
        toast(System.currentTimeMillis()+"",context);
     }
+      public static void sayTime1(Context context) {
+       toast(System.currentTimeMillis()+"",context);
+    }
 
 }
