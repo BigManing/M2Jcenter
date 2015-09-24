@@ -11,7 +11,9 @@ bintray.apikey=******************************   // https://bintray.com    用户
 3、在Android studio 右侧grandle  里面 要发布的library 下  有个publishing --bintrayUpload     点击运行 就可以上传library  
 
 4、 如果ok了     https://bintray.com    ---  maven  下---- 就会看到上传的 library 
-点击进去，add  to  jcenter     审核通过后  就可以直接引用了
+点击进去，add  to  jcenter     审核通过后（几个小时不等）  就可以直接引用了
 
 5、例如  ：
 compile 'jscenter.test.com.jcenterlibrary:jcenterlibrary:1.0.1'  
+
+6. 经验随时交流：  lingshui2008@qq.com
